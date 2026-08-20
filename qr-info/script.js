@@ -146,6 +146,7 @@ function initGenerator() {
       a.click();
     };
     document.getElementById("btnPreview").onclick = () => window.open(url, "_blank");
+    checkDeployed(base);
     document.getElementById("result").scrollIntoView({ behavior: "smooth" });
 
     function showErr(msg) {
@@ -153,6 +154,36 @@ function initGenerator() {
       err.hidden = false;
     }
   });
+}
+
+// QR을 만들 때 표시 페이지가 실제로 배포되어 있는지 자동 확인한다.
+// (QR은 나왔는데 페이지가 깃허브에 안 올라가 404가 되는 사고 방지)
+function checkDeployed(base) {
+  const el = document.getElementById("deployStatus");
+  if (!el) return;
+  el.hidden = false;
+  const isLocal = !/^https?:\/\//.test(base) || /^https?:\/\/(localhost|127\.|192\.168\.)/.test(base);
+  if (isLocal) {
+    el.className = "deploy warn";
+    el.textContent = "⚠️ 지금 주소는 내 컴퓨터 전용입니다. 이 QR은 손님 폰에서 열리지 않습니다. 배포된 생성기(https://ctbase81.github.io/qr-info/)에서 만드세요.";
+    return;
+  }
+  el.className = "deploy checking";
+  el.textContent = "표시 페이지 배포 상태 확인 중…";
+  fetch(base, { method: "HEAD", cache: "no-store" })
+    .then((r) => {
+      if (r.ok) {
+        el.className = "deploy ok";
+        el.textContent = "✅ 표시 페이지 연결 확인됨 — 이 QR은 바로 사용해도 됩니다.";
+      } else {
+        el.className = "deploy warn";
+        el.textContent = "⚠️ 표시 페이지가 아직 배포되지 않았습니다(" + r.status + "). 이대로 인쇄하면 404가 뜹니다. 깃허브에 올린 뒤 다시 QR을 생성하세요.";
+      }
+    })
+    .catch(() => {
+      el.className = "deploy warn";
+      el.textContent = "⚠️ 배포 상태를 확인하지 못했습니다(인터넷 연결 확인). 인쇄 전에 반드시 휴대폰으로 스캔 테스트를 하세요.";
+    });
 }
 
 function drawQR(url, label) {
