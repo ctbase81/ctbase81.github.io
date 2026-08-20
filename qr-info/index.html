@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>생활정보 QR 생성기</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+  <h1>생활정보 QR 생성기</h1>
+  <p class="sub">넣을 항목만 선택하세요. 선택한 정보는 암호화되어 QR 주소 안에만 담기고, 서버나 저장소에는 저장되지 않습니다.</p>
+
+  <div class="card">
+    <label class="check"><input type="checkbox" id="chkAccount"> <span>계좌정보</span></label>
+    <fieldset id="fsAccount" class="fs" disabled hidden>
+      <label>은행명 <input type="text" id="accBank" placeholder="예: 국민은행"></label>
+      <label>계좌번호 <input type="text" id="accNum" placeholder="예: 123456-78-901234" inputmode="numeric"></label>
+      <label>예금주 (선택) <input type="text" id="accHolder" placeholder="예: 홍길동"></label>
+    </fieldset>
+  </div>
+
+  <div class="card">
+    <label class="check"><input type="checkbox" id="chkWifi"> <span>Wi-Fi 정보</span></label>
+    <fieldset id="fsWifi" class="fs" disabled hidden>
+      <label>네트워크 이름(SSID) <input type="text" id="wifiSsid" placeholder="예: cafe_5G"></label>
+      <label>비밀번호 <input type="text" id="wifiPw" placeholder="예: coffee1234"></label>
+    </fieldset>
+  </div>
+
+  <div class="card">
+    <label class="check"><input type="checkbox" id="chkToilet"> <span>화장실 비밀번호</span></label>
+    <fieldset id="fsToilet" class="fs" disabled hidden>
+      <label>비밀번호 <input type="text" id="toiletPw" placeholder="예: 1234*"></label>
+    </fieldset>
+  </div>
+
+  <div class="card">
+    <label>표시 페이지 주소 (view.html)
+      <input type="text" id="baseUrl" placeholder="https://아이디.github.io/qr-info/view.html">
+    </label>
+    <p class="hint">이 생성기를 GitHub Pages에 올려서 열면 자동으로 채워집니다.</p>
+  </div>
+
+  <button id="btnMake" class="primary">QR 생성</button>
+  <p id="makeError" class="error" hidden></p>
+
+  <div id="result" hidden>
+    <div class="qrbox">
+      <canvas id="qrCanvas"></canvas>
+      <p id="qrPurpose" class="purpose"></p>
+    </div>
+    <div class="btnrow">
+      <button id="btnSave">QR 이미지 저장 (PNG)</button>
+      <button id="btnPreview">미리보기 열기</button>
+    </div>
+    <details class="urlbox">
+      <summary>생성된 주소 보기</summary>
+      <p id="qrUrl"></p>
+    </details>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
