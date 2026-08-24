@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘순대어때 - 계좌이체</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Pretendard","Noto Sans KR",sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#FFF8E8,#FFE9B3);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:100vh;
+
+padding:20px;
+
+}
+
+.card{
+
+background:#fff;
+
+width:100%;
+
+max-width:420px;
+
+border-radius:25px;
+
+padding:35px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+text-align:center;
+
+}
+
+.logo{
+
+font-size:52px;
+
+margin-bottom:10px;
+
+}
+
+.title{
+
+font-size:30px;
+
+font-weight:800;
+
+color:#333;
+
+margin-bottom:5px;
+
+}
+
+.sub{
+
+color:#777;
+
+margin-bottom:30px;
+
+}
+
+.bank{
+
+background:#FFF6D8;
+
+padding:18px;
+
+border-radius:15px;
+
+margin-bottom:20px;
+
+}
+
+.bankname{
+
+font-size:22px;
+
+font-weight:700;
+
+color:#444;
+
+margin-bottom:10px;
+
+}
+
+.account{
+
+font-size:30px;
+
+font-weight:900;
+
+color:#E53935;
+
+letter-spacing:1px;
+
+margin-bottom:8px;
+
+word-break:break-all;
+
+}
+
+.owner{
+
+font-size:18px;
+
+color:#666;
+
+}
+
+button{
+
+width:100%;
+
+padding:18px;
+
+font-size:22px;
+
+font-weight:bold;
+
+background:#FFD54F;
+
+border:none;
+
+border-radius:15px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+button:hover{
+
+transform:scale(1.03);
+
+}
+
+button:active{
+
+transform:scale(.97);
+
+}
+
+.msg{
+
+margin-top:20px;
+
+font-size:18px;
+
+font-weight:bold;
+
+color:#2E7D32;
+
+display:none;
+
+}
+
+.footer{
+
+margin-top:35px;
+
+font-size:15px;
+
+color:#888;
+
+line-height:1.7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="logo">🍽️</div>
+
+<div class="title">
+오늘순대어때
+</div>
+
+<div class="sub">
+푸드트럭 간편 계좌이체
+</div>
+
+<div class="bank">
+
+<div class="bankname">
+🏦 KB국민은행
+</div>
+
+<div class="account" id="acc">
+48040104307014
+</div>
+
+<div class="owner">
+👤 강★규
+</div>
+
+</div>
+
+<button onclick="copyAccount()">
+📋 계좌번호 복사하기
+</button>
+
+<div class="msg" id="msg">
+✅ 계좌번호가 복사되었습니다.
+</div>
+
+<div class="footer">
+
+맛있게 드셨다면<br>
+
+계좌이체도 간편하게 😊<br><br>
+
+감사합니다 ❤️
+
+</div>
+
+</div>
+
+<script>
+
+function copyAccount(){
+
+navigator.clipboard.writeText("48040104307014");
+
+document.getElementById("msg").style.display="block";
+
+setTimeout(function(){
+
+document.getElementById("msg").style.display="none";
+
+},2500);
+
+}
+
+</script>
+
+</body>
+
+</html>
