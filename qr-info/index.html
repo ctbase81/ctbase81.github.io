@@ -38,6 +38,17 @@
   </div>
 
   <div class="card">
+    <label class="check"><input type="checkbox" id="chkLink"> <span>SNS·링크 바로가기</span></label>
+    <fieldset id="fsLink" class="fs" disabled hidden>
+      <label>링크1 이름 <input type="text" id="link1Name" placeholder="예: 인스타그램"></label>
+      <label>링크1 주소 <input type="text" id="link1Url" placeholder="예: instagram.com/가게계정"></label>
+      <label>링크2 이름 (선택) <input type="text" id="link2Name" placeholder="예: 네이버밴드"></label>
+      <label>링크2 주소 (선택) <input type="text" id="link2Url" placeholder="예: band.us/밴드주소"></label>
+      <p class="hint">https:// 는 안 적어도 자동으로 붙습니다.</p>
+    </fieldset>
+  </div>
+
+  <div class="card">
     <label>표시 페이지 주소 (view.html)
       <input type="text" id="baseUrl" placeholder="https://아이디.github.io/qr-info/view.html">
     </label>

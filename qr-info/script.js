@@ -81,6 +81,7 @@ function initGenerator() {
     ["chkAccount", "fsAccount"],
     ["chkWifi", "fsWifi"],
     ["chkToilet", "fsToilet"],
+    ["chkLink", "fsLink"],
   ];
   for (const [chkId, fsId] of pairs) {
     const chk = document.getElementById(chkId);
@@ -123,6 +124,21 @@ function initGenerator() {
       if (!pw) return showErr("화장실 비밀번호를 입력해 주세요.");
       data.t = { p: pw };
       purposes.push("화장실");
+    }
+    if (document.getElementById("chkLink").checked) {
+      // 프로토콜 자동 보정 — 점주가 instagram.com/xxx 처럼 적어도 동작하게
+      const fixUrl = (u) => (/^https?:\/\//i.test(u) ? u : "https://" + u);
+      const links = [];
+      for (const i of [1, 2]) {
+        const name = document.getElementById("link" + i + "Name").value.trim();
+        const u = document.getElementById("link" + i + "Url").value.trim();
+        if (!name && !u) continue;
+        if (!name || !u) return showErr("링크" + i + ": 이름과 주소를 모두 입력해 주세요.");
+        links.push({ n: name, u: fixUrl(u) });
+      }
+      if (links.length === 0) return showErr("SNS·링크: 링크를 하나 이상 입력해 주세요.");
+      data.l = links;
+      purposes.push(...links.map((l) => l.n));
     }
     if (purposes.length === 0) return showErr("항목을 하나 이상 선택해 주세요.");
 
@@ -264,6 +280,20 @@ async function initViewer() {
   if (data.t) {
     const card = makeCard("🚻 화장실 비밀번호");
     card.appendChild(el("div", "toilet-pw", data.t.p));
+    content.appendChild(card);
+  }
+
+  if (data.l && data.l.length) {
+    const card = makeCard("🔗 바로가기");
+    for (const link of data.l) {
+      const a = document.createElement("a");
+      a.className = "linkbtn";
+      a.href = link.u;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = link.n + " 열기";
+      card.appendChild(a);
+    }
     content.appendChild(card);
   }
 
