@@ -1,0 +1,17 @@
+# GitHub Pages 저장소 "루트"에 이 파일을 그대로 올리세요.
+# 위치: https://아이디.github.io/robots.txt  (s/ 폴더 안이 아니라 최상단)
+#
+# 목적: 매장 안내 페이지(/s/매장ID/)에는 계좌번호·예금주·WiFi 비밀번호·
+#       사업자등록번호가 들어갑니다. 검색엔진 색인을 막습니다.
+#       스티커·QR·NFC로 직접 접속하는 데는 아무 영향이 없습니다.
+
+User-agent: *
+Disallow: /s/
+
+# /innotech/ 는 QR로 직접 들어오는 안내 페이지입니다. 색인될 이유가 없고,
+# 안에 회사소개서 PDF(Confidential 표기 포함)가 있어 크롤링을 막습니다.
+# QR·명패로 접속하는 데는 아무 영향이 없습니다.
+Disallow: /innotech/
+
+# 접수 페이지(/order/)는 홍보용이므로 색인을 허용합니다.
+Allow: /order/
